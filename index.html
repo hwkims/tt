@@ -16,254 +16,254 @@
             height: 100vh;
             background-color: #f0f0f0;
         }
-        .background-video {
+         .background-video {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+             width: 100%;
             height: 100%;
             z-index: -1;
         }
         .background-video iframe {
             width: 100%;
-            height: 100%;
-            pointer-events: none;
+           height: 100%;
+             pointer-events: none;
         }
-         .game-container {
-            position: relative;
+       .game-container {
+           position: relative;
             width: 100%;
-             max-width: 500px;
+            max-width: 500px;
             height: 100%;
-            display: flex;
+             display: flex;
             flex-direction: column;
-           align-items: center;
+            align-items: center;
             overflow: hidden;
         }
-        .game-board {
-             position: relative;
-           background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-           border-radius: 10px;
-           backdrop-filter: blur(10px);
-             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+         .game-board {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.1);
+             padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
            flex: 1;
-             overflow: auto;
-       }
-      .layer {
+            overflow: auto;
+        }
+        .layer {
             position: absolute;
             display: grid;
             grid-gap: 5px;
            transition: all 0.3s ease;
-        }
-       .tile {
+         }
+        .tile {
             width: 50px;
-            height: 50px;
-            font-size: 28px;
-             background-color: rgba(255, 255, 255, 0.9);
-            display: flex;
-           align-items: center;
-             justify-content: center;
+           height: 50px;
+             font-size: 28px;
+            background-color: rgba(255, 255, 255, 0.9);
+           display: flex;
+            align-items: center;
+           justify-content: center;
             cursor: pointer;
-             border-radius: 10px;
-             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            transition: transform 0.2s ease, background-color 0.2s ease;
-             user-select: none;
+          border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+             transition: transform 0.2s ease, background-color 0.2s ease;
+            user-select: none;
            z-index: 1;
              position: absolute;
        }
-       .tile.selected {
+        .tile.selected {
             transform: scale(1.1);
-           background-color: rgba(240, 240, 240, 0.9);
+            background-color: rgba(240, 240, 240, 0.9);
           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-          z-index: 2;
-         }
+           z-index: 2;
+        }
        .tile.matched {
-           animation: fadeOut 0.5s forwards;
+          animation: fadeOut 0.5s forwards;
         }
          .ui-container{
              display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-           width: 100%;
-          padding: 10px 20px;
-           color: white;
-       }
-        .score{
-          font-size: 20px;
-        }
-        .hint-button, .shuffle-button {
-             margin-top: 10px;
-            background-color: #4A5A6A;
-            color: white;
+             flex-direction: row;
+             justify-content: space-between;
+            width: 100%;
            padding: 10px 20px;
+           color: white;
+         }
+        .score{
+           font-size: 20px;
+        }
+       .hint-button, .shuffle-button {
+           margin-top: 10px;
+            background-color: #4A5A6A;
+           color: white;
+             padding: 10px 20px;
            border: none;
             border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+             cursor: pointer;
+             transition: all 0.3s ease;
+         }
        .hint-button:hover, .shuffle-button:hover {
-           background-color: #283848;
+            background-color: #283848;
         }
         @keyframes fadeOut {
-            from {
-              opacity: 1;
-             }
+           from {
+                opacity: 1;
+          }
            to {
-              opacity: 0;
+               opacity: 0;
                transform: scale(0);
-            }
+           }
        }
          .confetti-container {
             position: fixed;
-            top: 0;
-           left: 0;
-            width: 100%;
-             height: 100%;
+             top: 0;
+            left: 0;
+             width: 100%;
+           height: 100%;
              pointer-events: none;
-            z-index: 9999;
-         }
+           z-index: 9999;
+        }
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
            background-color: gold;
-             border-radius: 50%;
-             animation: confettiFall 5s ease-out infinite;
+            border-radius: 50%;
+            animation: confettiFall 5s ease-out infinite;
         }
-       @keyframes confettiFall {
-           0% {
-                opacity: 1;
+         @keyframes confettiFall {
+          0% {
+              opacity: 1;
                transform: translateY(0) rotate(0deg);
-            }
+           }
            100% {
-               opacity: 0;
-                transform: translateY(100vh) rotate(720deg);
-          }
-       }
-         .game-complete-message {
-            position: absolute;
-             top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-             font-size: 36px;
-           font-weight: bold;
-             color: white;
-             text-shadow: 2px 2px 4px #000;
-             text-align: center;
-            display: none;
+              opacity: 0;
+              transform: translateY(100vh) rotate(720deg);
+            }
         }
-       .level-transition {
-            position: fixed;
-            top: 0;
-           left: 0;
-             width: 100%;
-             height: 100%;
-           background-color: rgba(0,0,0,0.8);
-           display: flex;
-            justify-content: center;
-           align-items: center;
-            font-size: 48px;
+        .game-complete-message {
+          position: absolute;
+           top: 50%;
+            left: 50%;
+             transform: translate(-50%, -50%);
+            font-size: 36px;
+            font-weight: bold;
             color: white;
-          z-index: 10000;
-            opacity: 0;
-           pointer-events: none;
-            transition: opacity 0.5s ease;
+             text-shadow: 2px 2px 4px #000;
+           text-align: center;
+            display: none;
        }
-       .level-transition.active {
+        .level-transition {
+            position: fixed;
+           top: 0;
+             left: 0;
+            width: 100%;
+             height: 100%;
+            background-color: rgba(0,0,0,0.8);
+           display: flex;
+             justify-content: center;
+             align-items: center;
+           font-size: 48px;
+             color: white;
+            z-index: 10000;
+          opacity: 0;
+            pointer-events: none;
+           transition: opacity 0.5s ease;
+        }
+         .level-transition.active {
             opacity: 1;
          }
         .queue-container {
-            display: flex;
-          justify-content: center;
-            gap: 10px;
-             padding: 10px 0;
-        }
+           display: flex;
+            justify-content: center;
+           gap: 10px;
+            padding: 10px 0;
+         }
         .queue-slot {
-            width: 50px;
-             height: 50px;
-             border: 2px dashed #ccc;
+           width: 50px;
+            height: 50px;
+            border: 2px dashed #ccc;
              border-radius: 10px;
-             background-color: rgba(255, 255, 255, 0.1);
-             display: flex;
-             justify-content: center;
+           background-color: rgba(255, 255, 255, 0.1);
+           display: flex;
+            justify-content: center;
             align-items: center;
-       }
-        .queue-slot.full {
+         }
+         .queue-slot.full {
             border: 2px solid #ccc;
         }
-       .game-over-overlay {
+         .game-over-overlay {
             position: fixed;
-             top: 0;
-            left: 0;
-           width: 100%;
-           height: 100%;
-             background-color: rgba(0, 0, 0, 0.7);
-           display: flex;
-             justify-content: center;
+            top: 0;
+             left: 0;
+            width: 100%;
+             height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
             align-items: center;
-             z-index: 10001;
-             display: none;
-        }
-       .game-over-container {
-          background-color: #f9f9f9;
+           z-index: 10001;
+            display: none;
+       }
+      .game-over-container {
+            background-color: #f9f9f9;
             padding: 30px;
            border-radius: 15px;
              text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-       }
-        .game-over-title {
-          font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-             color: #333;
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
          }
+        .game-over-title {
+            font-size: 24px;
+           font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
         .game-over-score {
-            font-size: 18px;
-             color: #666;
+             font-size: 18px;
+            color: #666;
            margin-bottom: 30px;
         }
-       .game-over-button {
-          background-color: #4CAF50;
+        .game-over-button {
+           background-color: #4CAF50;
             color: white;
             padding: 15px 30px;
-            border: none;
-             border-radius: 8px;
+          border: none;
+            border-radius: 8px;
              font-size: 16px;
              cursor: pointer;
            transition: background-color 0.3s ease;
-        }
-        .game-over-button:hover {
-            background-color: #367c39;
+       }
+       .game-over-button:hover {
+           background-color: #367c39;
        }
     </style>
 </head>
 <body>
     <div class="background-video">
-         <iframe src="https://www.youtube.com/embed/videoseries?list=PLmqlw16J0698OoM1eYZOf1N9fxhauLNVB&autoplay=1&loop=1&playlist=PLmqlw16J0698OoM1eYZOf1N9fxhauLNVB" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/videoseries?list=PLmqlw16J0698OoM1eYZOf1N9fxhauLNVB&autoplay=1&loop=1&playlist=PLmqlw16J0698OoM1eYZOf1N9fxhauLNVB" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="game-container">
-        <div class="game-board">
+       <div class="game-board">
         </div>
         <div class="ui-container">
-           <div class="score">Score: 0</div>
-             <div>
+            <div class="score">Score: 0</div>
+            <div>
                 <button class="hint-button">Hint</button>
-               <button class="shuffle-button">Shuffle</button>
-           </div>
+                <button class="shuffle-button">Shuffle</button>
+            </div>
        </div>
          <div class="queue-container">
        </div>
-     <div class="game-complete-message">훌륭해요!</div>
+        <div class="game-complete-message">훌륭해요!</div>
         <div class="confetti-container"></div>
-        <div class="level-transition"></div>
+       <div class="level-transition"></div>
    </div>
-  <div class="game-over-overlay" id="gameOverOverlay">
-      <div class="game-over-container">
-            <h2 class="game-over-title">Game Over</h2>
-           <p class="game-over-score" id="gameOverScore"></p>
+   <div class="game-over-overlay" id="gameOverOverlay">
+        <div class="game-over-container">
+             <h2 class="game-over-title">Game Over</h2>
+            <p class="game-over-score" id="gameOverScore"></p>
             <button class="game-over-button" onclick="restartGame()">재시작</button>
-        </div>
-    </div>
+       </div>
+   </div>
     <script>
         const gameBoard = document.querySelector('.game-board');
          const scoreDisplay = document.querySelector('.score');
@@ -271,253 +271,239 @@
          const confettiContainer = document.querySelector('.confetti-container');
        const gameCompleteMessage = document.querySelector('.game-complete-message');
        const levelTransition = document.querySelector('.level-transition');
-        const shuffleButton = document.querySelector('.shuffle-button');
-        const gameOverOverlay = document.getElementById('gameOverOverlay');
-          const gameOverScoreDisplay = document.getElementById('gameOverScore');
+         const shuffleButton = document.querySelector('.shuffle-button');
+          const gameOverOverlay = document.getElementById('gameOverOverlay');
+         const gameOverScoreDisplay = document.getElementById('gameOverScore');
         const queueContainer = document.querySelector('.queue-container');
+
 
           let tiles = [];
           let selectedTiles = [];
-         let score = 0;
-        let hintAvailable = true;
+        let score = 0;
+          let hintAvailable = true;
         let currentLevel = 1;
          let gameCompleted = false;
-          let combo = 1;
-          let canClick = true;
-        let gameTime = 60; // 추가
-        let timeInterval;
-         let queue = [];
+        let combo = 1;
+         let canClick = true;
+        let queue = [];
         const queueSize = 7;
 
 
         const emojis = [
             '🍎', '🍌', '🍇', '🍉', '🥝', '🍓', '🍋', '🍊', '🍍', '🥭',
-          '🥑', '🍒', '🍑', '🥥', '🥝', '🫐', '🍅', '🥔', '🥕', '🌶️',
-          '🌽', '🍄', '🥜', '🌰', '🥐', '🥯', '🥨', '🍟', '🍕', '🍔'
+             '🥑', '🍒', '🍑', '🥥', '🥝', '🫐', '🍅', '🥔', '🥕', '🌶️',
+             '🌽', '🍄', '🥜', '🌰', '🥐', '🥯', '🥨', '🍟', '🍕', '🍔'
        ];
-       function generateLevel(level) {
-            gameBoard.innerHTML = '';
-           tiles = [];
-            const layersCount = Math.ceil(level / 2) + 2;
+         function generateLevel(level) {
+           gameBoard.innerHTML = '';
+            tiles = [];
+           const layersCount = Math.ceil(level / 2) + 2;
           const baseLayerSize = 3;
-
-
-         for (let layerIndex = 0; layerIndex < layersCount; layerIndex++) {
-            const layer = document.createElement('div');
+             for (let layerIndex = 0; layerIndex < layersCount; layerIndex++) {
+                const layer = document.createElement('div');
                 layer.classList.add('layer');
-            gameBoard.appendChild(layer);
-            const layerSize = baseLayerSize + layerIndex * 2;
-            layer.style.gridTemplateColumns = `repeat(${layerSize}, 50px)`;
+               gameBoard.appendChild(layer);
+
+               const layerSize = baseLayerSize + layerIndex * 2;
+              layer.style.gridTemplateColumns = `repeat(${layerSize}, 50px)`;
                layer.style.transform = `translateY(${layerIndex * 10}px)`;
 
-            for (let i = 0; i < layerSize * layerSize; i++){
+               for (let i = 0; i < layerSize * layerSize; i++){
                 if(Math.random() > 0.15){
-                    const tile = document.createElement('div');
-                      tile.classList.add('tile');
-                        tile.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                     tile.dataset.index = tiles.length;
-                   tile.addEventListener('click', () => handleTileClick(tile));
+                   const tile = document.createElement('div');
+                    tile.classList.add('tile');
+                     tile.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                  tile.dataset.index = tiles.length;
+                    tile.addEventListener('click', () => handleTileClick(tile));
                      tiles.push(tile);
 
                     const x = Math.random() * (gameBoard.offsetWidth - 50);
                     const y = Math.random() * (gameBoard.offsetHeight - 50);
-                    tile.style.left = x + 'px';
+                      tile.style.left = x + 'px';
                     tile.style.top = y - (layerIndex * 20) + 'px';
-                 layer.appendChild(tile);
+                     layer.appendChild(tile);
+                }
               }
-             }
-
-            }
-     }
-      function handleTileClick(tile) {
+           }
+        }
+        function handleTileClick(tile) {
           if (!canClick || gameCompleted ) return;
             canClick = false;
-             tile.classList.add('selected');
+            tile.classList.add('selected');
             addToQueue(tile);
-       }
-
-      function addToQueue(tile) {
-           if (queue.length < queueSize) {
+         }
+       function addToQueue(tile) {
+            if (queue.length < queueSize) {
                 queue.push(tile);
-              renderQueue();
+                renderQueue();
              tile.style.opacity = 0.5;
                  setTimeout(() => {
                   tile.classList.remove('selected');
-                   canClick = true;
-                }, 100)
-                 checkMatch();
-             } else {
-              setTimeout(() => {
                     canClick = true;
-                },100);
-             }
+               }, 100)
+              checkMatch();
+             } else {
+               setTimeout(() => {
+                  canClick = true;
+                 },100);
+            }
         }
-      function checkMatch(){
+        function checkMatch(){
            if (queue.length < 3) return;
-          const lastThree = queue.slice(-3);
-            const [tile1, tile2, tile3] = lastThree;
-         if (tile1.textContent === tile2.textContent && tile2.textContent === tile3.textContent) {
-               tile1.classList.add('matched');
-               tile2.classList.add('matched');
-              tile3.classList.add('matched');
-             setTimeout(() => {
-               tile1.remove();
-                    tile2.remove();
-                   tile3.remove();
-                     score += 15 * combo; // 트리플 매칭은 15점으로 설정
-                   scoreDisplay.textContent = 'Score: ' + score;
-                    queue = queue.slice(0, -3);
+           const lastThree = queue.slice(-3);
+             const [tile1, tile2, tile3] = lastThree;
+            if (tile1.textContent === tile2.textContent && tile2.textContent === tile3.textContent) {
+                 tile1.classList.add('matched');
+                 tile2.classList.add('matched');
+                  tile3.classList.add('matched');
+                setTimeout(() => {
+                  tile1.remove();
+                  tile2.remove();
+                    tile3.remove();
+                   score += 15 * combo;
+                 scoreDisplay.textContent = 'Score: ' + score;
+                  queue = queue.slice(0, -3);
                     renderQueue();
-                   if(isGameComplete()){
-                        handleGameComplete();
+                     if(isGameComplete()){
+                       handleGameComplete();
                    }
-                  combo++;
-               },300);
+                    combo++;
+                },300);
 
-         }else {
+            }else {
               renderQueue();
-              combo = 1;
-            }
-     }
-    function renderQueue() {
-       queueContainer.innerHTML = '';
-            for(let i = 0; i < queueSize; i++){
-            const slot = document.createElement('div');
-             slot.classList.add('queue-slot');
-              if(queue[i]){
-                 slot.classList.add('full');
-                  slot.textContent = queue[i].textContent;
-            }
-           queueContainer.appendChild(slot);
+               combo = 1;
           }
-    }
-        function isGameComplete() {
-             return tiles.every(tile => tile.classList.contains('matched'));
+       }
+        function renderQueue() {
+             queueContainer.innerHTML = '';
+             for(let i = 0; i < queueSize; i++){
+              const slot = document.createElement('div');
+               slot.classList.add('queue-slot');
+                 if(queue[i]){
+                     slot.classList.add('full');
+                   slot.textContent = queue[i].textContent;
+                }
+              queueContainer.appendChild(slot);
+           }
+       }
+       function isGameComplete() {
+          return tiles.every(tile => tile.classList.contains('matched'));
        }
         function handleGameComplete(){
-             gameCompleted = true;
-             gameCompleteMessage.style.display = 'block';
-           showConfetti();
-           clearInterval(timeInterval);
-           setTimeout(() => {
-                gameCompleted = false;
+          gameCompleted = true;
+            gameCompleteMessage.style.display = 'block';
+            showConfetti();
+
+             setTimeout(() => {
+               gameCompleted = false;
                gameCompleteMessage.style.display = 'none';
-                 currentLevel++;
-               updateURL();
-               startLevel();
-           }, 3000)
-      }
-        function showConfetti() {
-             for (let i = 0; i < 100; i++) {
-               const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
+                  currentLevel++;
+                   updateURL();
+                startLevel();
+            }, 3000)
+        }
+       function showConfetti() {
+          for (let i = 0; i < 100; i++) {
+              const confetti = document.createElement('div');
+              confetti.classList.add('confetti');
                 confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.animationDelay = `${Math.random() * 2}s`;
-               confettiContainer.appendChild(confetti);
-            }
-           setTimeout(() => {
+              confetti.style.animationDelay = `${Math.random() * 2}s`;
+                confettiContainer.appendChild(confetti);
+           }
+            setTimeout(() => {
               confettiContainer.innerHTML = '';
-           }, 5000);
-         }
-         function showHint() {
+            }, 5000);
+        }
+        function showHint() {
             if (!hintAvailable) return;
-          const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
+           const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
 
             if (unmatchedTiles.length < 3) {
-                 return;
-            }
-           const potentialMatches = [];
-          for (let i = 0; i < unmatchedTiles.length; i++) {
-               for (let j = i + 1; j < unmatchedTiles.length; j++) {
+                return;
+             }
+          const potentialMatches = [];
+            for (let i = 0; i < unmatchedTiles.length; i++) {
+                for (let j = i + 1; j < unmatchedTiles.length; j++) {
                  for(let k = j + 1; k < unmatchedTiles.length; k++){
-                       if (unmatchedTiles[i].textContent === unmatchedTiles[j].textContent && unmatchedTiles[j].textContent === unmatchedTiles[k].textContent) {
+                   if (unmatchedTiles[i].textContent === unmatchedTiles[j].textContent && unmatchedTiles[j].textContent === unmatchedTiles[k].textContent) {
                          potentialMatches.push([unmatchedTiles[i], unmatchedTiles[j], unmatchedTiles[k]]);
-                        }
                    }
                 }
-             }
-          if (potentialMatches.length > 0) {
-                 const [hintTile1, hintTile2, hintTile3] = potentialMatches[Math.floor(Math.random() * potentialMatches.length)];
-                hintTile1.classList.add('selected');
-                   hintTile2.classList.add('selected');
-                 hintTile3.classList.add('selected');
-             setTimeout(() => {
-                  hintTile1.classList.remove('selected');
-                  hintTile2.classList.remove('selected');
-                hintTile3.classList.remove('selected');
-              }, 1000);
+              }
+            }
+            if (potentialMatches.length > 0) {
+               const [hintTile1, hintTile2, hintTile3] = potentialMatches[Math.floor(Math.random() * potentialMatches.length)];
+                 hintTile1.classList.add('selected');
+                  hintTile2.classList.add('selected');
+                  hintTile3.classList.add('selected');
+
+               setTimeout(() => {
+                 hintTile1.classList.remove('selected');
+                    hintTile2.classList.remove('selected');
+                   hintTile3.classList.remove('selected');
+               }, 1000);
               hintAvailable = false;
-                 hintButton.disabled = true;
-            setTimeout(() => {
-                hintAvailable = true;
+               hintButton.disabled = true;
+                setTimeout(() => {
+                 hintAvailable = true;
                   hintButton.disabled = false;
-               }, 3000);
-          }
+                }, 3000);
+            }
        }
-         hintButton.addEventListener('click', showHint);
+      hintButton.addEventListener('click', showHint);
         function startLevel(){
             showLevelTransition();
-           setTimeout(() => {
+             setTimeout(() => {
                 generateLevel(currentLevel);
-                 startTimer();
            }, 500);
-       }
+        }
        function updateURL(){
-           const params = new URLSearchParams(window.location.search);
+          const params = new URLSearchParams(window.location.search);
              params.set('level', currentLevel);
-           window.history.pushState({}, '', `${location.pathname}?${params}`);
+             window.history.pushState({}, '', `${location.pathname}?${params}`);
        }
-       function getLevelFromURL() {
-            const params = new URLSearchParams(window.location.search);
-           const levelParam = params.get('level');
-             return levelParam ? parseInt(levelParam, 10) : 1;
-       }
+         function getLevelFromURL() {
+             const params = new URLSearchParams(window.location.search);
+             const levelParam = params.get('level');
+              return levelParam ? parseInt(levelParam, 10) : 1;
+        }
        function showLevelTransition() {
-           levelTransition.textContent = `Level ${currentLevel}`;
-             levelTransition.classList.add('active');
+             levelTransition.textContent = `Level ${currentLevel}`;
+            levelTransition.classList.add('active');
             setTimeout(() => {
-               levelTransition.classList.remove('active');
-          }, 1000);
-       }
+                levelTransition.classList.remove('active');
+            }, 1000);
+        }
          function shuffleTiles() {
             if (!canClick) return;
             canClick = false;
             const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
-            for (let tile of unmatchedTiles) {
-             const x = Math.random() * (gameBoard.offsetWidth - 50);
-               const y = Math.random() * (gameBoard.offsetHeight - 50);
-                tile.style.left = x + 'px';
-                tile.style.top = y + 'px';
+           for (let tile of unmatchedTiles) {
+              const x = Math.random() * (gameBoard.offsetWidth - 50);
+             const y = Math.random() * (gameBoard.offsetHeight - 50);
+                 tile.style.left = x + 'px';
+                 tile.style.top = y + 'px';
             }
            setTimeout(() => {
-                canClick = true;
+                 canClick = true;
            },500);
        }
-       shuffleButton.addEventListener('click', shuffleTiles);
-        function startTimer() {
-            clearInterval(timeInterval);
-           gameTime = 60;
-          timeInterval = setInterval(() => {
-                gameTime--;
-               if (gameTime <= 0) {
-                   gameOver();
-               }
-           }, 1000);
-       }
-       function gameOver(){
-           clearInterval(timeInterval);
-            gameOverScoreDisplay.textContent = `Score: ${score}`;
-            gameOverOverlay.style.display = 'flex';
+        shuffleButton.addEventListener('click', shuffleTiles);
+
+        function gameOver(){
+           gameOverScoreDisplay.textContent = `Score: ${score}`;
+          gameOverOverlay.style.display = 'flex';
        }
       function restartGame() {
-            gameOverOverlay.style.display = 'none';
-           currentLevel = 1;
-           score = 0;
-          updateURL();
-             startLevel();
-        }
+           gameOverOverlay.style.display = 'none';
+            currentLevel = 1;
+            score = 0;
+            updateURL();
+            startLevel();
+      }
         currentLevel = getLevelFromURL();
-        startLevel();
+      startLevel();
     </script>
 </body>
 </html>
