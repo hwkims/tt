@@ -6,514 +6,568 @@
     <title>이모지 매칭 퍼즐 게임</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍎</text></svg>">
     <style>
-        body {
+         body {
             margin: 0;
             overflow: hidden;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             touch-action: none;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
+           align-items: center;
+             height: 100vh;
+             background-color: #f0f0f0;
         }
-         .background-video {
-            position: fixed;
-             top: 0;
-            left: 0;
-            width: 100%;
-           height: 100%;
-             z-index: -1;
-       }
-      .background-video iframe {
-           width: 100%;
-             height: 100%;
-            pointer-events: none;
-       }
-        .game-container {
-           position: relative;
-           width: 100%;
-             max-width: 500px;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-             overflow: hidden;
-        }
-      .game-board {
-           position: relative;
-            background-color: rgba(255, 255, 255, 0.1);
-             padding: 20px;
-           border-radius: 10px;
-             backdrop-filter: blur(10px);
-             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-           flex: 1;
-            overflow: hidden;
-          width: 100%; /* 추가 */
-        }
-        .layer {
-            position: absolute;
-            display: grid;
-            grid-gap: 5px;
-           transition: all 0.3s ease;
-        }
-         .tile {
-             width: 50px;
-           height: 50px;
-            font-size: 28px;
-             background-color: rgba(255, 255, 255, 0.9);
-             display: flex;
-            align-items: center;
-             justify-content: center;
-             cursor: pointer;
-             border-radius: 10px;
-             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-           transition: transform 0.2s ease, background-color 0.2s ease;
-             user-select: none;
-            z-index: 1;
-            position: absolute;
-       }
-         .tile.selected {
-             transform: scale(1.1);
-            background-color: rgba(240, 240, 240, 0.9);
-             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            z-index: 2;
-        }
-        .tile.matched {
-           animation: fadeOut 0.5s forwards;
-         }
-         .ui-container{
-             display: flex;
-           flex-direction: column;
-            width: 100%;
-             padding: 10px 20px;
-           color: white;
-        }
-        .ui-buttons{
-            display: flex;
-           justify-content: space-between;
-       }
-        .score{
-          font-size: 20px;
-        }
-        .hint-button, .shuffle-button {
-            margin-top: 10px;
-            background-color: #4A5A6A;
-           color: white;
-           padding: 10px 20px;
-             border: none;
-             border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-         }
-        .hint-button:hover, .shuffle-button:hover {
-            background-color: #283848;
-        }
-        @keyframes fadeOut {
-           from {
-                opacity: 1;
-           }
-            to {
-               opacity: 0;
-              transform: scale(0);
-            }
-        }
-        .confetti-container {
+        .background-video {
              position: fixed;
             top: 0;
             left: 0;
+             width: 100%;
+             height: 100%;
+            z-index: -1;
+        }
+        .background-video iframe {
            width: 100%;
+           height: 100%;
+             pointer-events: none;
+        }
+        .game-container {
+           position: relative;
+             width: 100%;
+            max-width: 500px;
             height: 100%;
-           pointer-events: none;
-            z-index: 9999;
-      }
-        .confetti {
-            position: absolute;
-           width: 10px;
-            height: 10px;
-            background-color: gold;
-            border-radius: 50%;
-           animation: confettiFall 5s ease-out infinite;
-      }
-       @keyframes confettiFall {
-           0% {
-                opacity: 1;
-               transform: translateY(0) rotate(0deg);
-            }
-           100% {
-                opacity: 0;
-              transform: translateY(100vh) rotate(720deg);
-           }
-       }
-      .game-complete-message {
-            position: absolute;
-           top: 50%;
-            left: 50%;
-             transform: translate(-50%, -50%);
-           font-size: 36px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px #000;
-             text-align: center;
-            display: none;
-      }
-        .level-transition {
-           position: fixed;
-            top: 0;
-           left: 0;
-           width: 100%;
-            height: 100%;
-           background-color: rgba(0,0,0,0.8);
             display: flex;
-           justify-content: center;
+             flex-direction: column;
            align-items: center;
-           font-size: 48px;
-            color: white;
-            z-index: 10000;
-           opacity: 0;
-           pointer-events: none;
-             transition: opacity 0.5s ease;
+             overflow: hidden;
        }
-        .level-transition.active {
-           opacity: 1;
-       }
-       .queue-container {
-          display: flex;
-           justify-content: center;
-           gap: 10px;
-            padding: 10px 0;
-         }
-        .queue-slot {
-           width: 50px;
-           height: 50px;
-            border: 2px dashed #ccc;
-           border-radius: 10px;
+      .game-board {
+           position: relative;
              background-color: rgba(255, 255, 255, 0.1);
-            display: flex;
-           justify-content: center;
-             align-items: center;
+           padding: 20px;
+             border-radius: 10px;
+             backdrop-filter: blur(0px);
+           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+           flex: 1;
+            overflow: hidden;
+            width: 100%;
+         }
+        .layer {
+            position: absolute;
+           display: grid;
+            grid-gap: 5px;
+           transition: all 0.3s ease;
        }
-         .queue-slot.full {
-            border: 2px solid #ccc;
+        .tile {
+             width: 50px;
+            height: 50px;
+             font-size: 28px;
+           background-color: rgba(255, 255, 255, 0.9);
+             display: flex;
+            align-items: center;
+           justify-content: center;
+           cursor: pointer;
+           border-radius: 10px;
+             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+           transition: transform 0.2s ease, background-color 0.2s ease;
+           user-select: none;
+           z-index: 1;
+            position: absolute;
+        }
+       .tile.selected {
+           transform: scale(1.1);
+            background-color: rgba(240, 240, 240, 0.9);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 2;
       }
-        .game-over-overlay {
+        .tile.matched {
+            animation: fadeOut 0.5s forwards;
+        }
+        .ui-container{
+           display: flex;
+           flex-direction: column;
+           width: 100%;
+            padding: 10px 20px;
+           color: white;
+      }
+       .ui-buttons{
+           display: flex;
+            justify-content: space-between;
+        }
+        .score{
+            font-size: 20px;
+        }
+        .hint-button, .shuffle-button {
+          margin-top: 10px;
+            background-color: #4A5A6A;
+            color: white;
+           padding: 10px 20px;
+             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+       }
+      .hint-button:hover, .shuffle-button:hover {
+            background-color: #283848;
+      }
+       @keyframes fadeOut {
+          from {
+                opacity: 1;
+           }
+          to {
+               opacity: 0;
+                transform: scale(0);
+            }
+       }
+       .confetti-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-             height: 100%;
-             background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
+           height: 100%;
+             pointer-events: none;
+             z-index: 9999;
+        }
+        .confetti {
+           position: absolute;
+             width: 10px;
+            height: 10px;
+           background-color: gold;
+            border-radius: 50%;
+           animation: confettiFall 5s ease-out infinite;
+        }
+        @keyframes confettiFall {
+            0% {
+              opacity: 1;
+              transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+       }
+      .game-complete-message {
+            position: absolute;
+            top: 50%;
+           left: 50%;
+            transform: translate(-50%, -50%);
+           font-size: 36px;
+            font-weight: bold;
+             color: white;
+             text-shadow: 2px 2px 4px #000;
+             text-align: center;
+            display: none;
+       }
+         .level-transition {
+            position: fixed;
+             top: 0;
+           left: 0;
+             width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+             display: flex;
             justify-content: center;
            align-items: center;
-             z-index: 10001;
-           display: none;
+            font-size: 48px;
+             color: white;
+            z-index: 10000;
+            opacity: 0;
+           pointer-events: none;
+            transition: opacity 0.5s ease;
+         }
+         .level-transition.active {
+             opacity: 1;
+       }
+        .queue-container {
+            display: flex;
+           justify-content: center;
+            gap: 10px;
+            padding: 10px 0;
         }
+       .queue-slot {
+           width: 50px;
+             height: 50px;
+             border: 2px dashed #ccc;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+             justify-content: center;
+           align-items: center;
+      }
+       .queue-slot.full {
+            border: 2px solid #ccc;
+        }
+        .game-over-overlay {
+            position: fixed;
+             top: 0;
+             left: 0;
+           width: 100%;
+           height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+             justify-content: center;
+           align-items: center;
+             z-index: 10001;
+             display: none;
+      }
        .game-over-container {
            background-color: #f9f9f9;
             padding: 30px;
-             border-radius: 15px;
-             text-align: center;
-             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+           border-radius: 15px;
+           text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
         .game-over-title {
-           font-size: 24px;
-           font-weight: bold;
-           margin-bottom: 20px;
-             color: #333;
-         }
+             font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+       }
        .game-over-score {
            font-size: 18px;
             color: #666;
             margin-bottom: 30px;
        }
-      .game-over-button {
-           background-color: #4CAF50;
+       .game-over-button {
+            background-color: #4CAF50;
             color: white;
              padding: 15px 30px;
-            border: none;
+             border: none;
              border-radius: 8px;
             font-size: 16px;
-            cursor: pointer;
+             cursor: pointer;
              transition: background-color 0.3s ease;
         }
-       .game-over-button:hover {
+      .game-over-button:hover {
            background-color: #367c39;
-       }
+        }
     </style>
 </head>
 <body>
     <div class="background-video">
         <iframe src="https://www.youtube.com/embed/videoseries?list=PLmqlw16J0698OoM1eYZOf1N9fxhauLNVB&autoplay=1&loop=1&playlist=PLmqlw16J0698OoM1eYZOf1N9fxhauLNVB" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-   <div class="game-container">
+   </div>
+    <div class="game-container">
         <div class="game-board">
-       </div>
+        </div>
         <div class="ui-container">
-            <div class="queue-container">
+             <div class="queue-container">
             </div>
-            <div class="ui-buttons">
-                <div class="score">Score: 0</div>
-                <div>
-                   <button class="hint-button">Hint</button>
+             <div class="ui-buttons">
+               <div class="score">Score: 0</div>
+                 <div>
+                     <button class="hint-button">Hint</button>
                    <button class="shuffle-button">Shuffle</button>
                 </div>
-            </div>
-        </div>
+           </div>
+       </div>
       <div class="game-complete-message">훌륭해요!</div>
-        <div class="confetti-container"></div>
+       <div class="confetti-container"></div>
        <div class="level-transition"></div>
-    </div>
+   </div>
     <div class="game-over-overlay" id="gameOverOverlay">
        <div class="game-over-container">
            <h2 class="game-over-title">Game Over</h2>
              <p class="game-over-score" id="gameOverScore"></p>
-           <button class="game-over-button" onclick="restartGame()">재시작</button>
-      </div>
-   </div>
+            <button class="game-over-button" onclick="restartGame()">재시작</button>
+       </div>
+    </div>
+    <button id="fullscreenButton" style="position: absolute; top: 20px; left: 20px; z-index: 10002; padding: 10px; background: #333; color: white;">전체화면</button>
     <script>
-         const gameBoard = document.querySelector('.game-board');
-         const scoreDisplay = document.querySelector('.score');
-       const hintButton = document.querySelector('.hint-button');
+        const gameBoard = document.querySelector('.game-board');
+          const scoreDisplay = document.querySelector('.score');
+        const hintButton = document.querySelector('.hint-button');
          const confettiContainer = document.querySelector('.confetti-container');
-        const gameCompleteMessage = document.querySelector('.game-complete-message');
-        const levelTransition = document.querySelector('.level-transition');
-          const shuffleButton = document.querySelector('.shuffle-button');
-        const gameOverOverlay = document.getElementById('gameOverOverlay');
-         const gameOverScoreDisplay = document.getElementById('gameOverScore');
-       const queueContainer = document.querySelector('.queue-container');
-
-         let tiles = [];
-        let selectedTiles = [];
-        let score = 0;
+       const gameCompleteMessage = document.querySelector('.game-complete-message');
+          const levelTransition = document.querySelector('.level-transition');
+        const shuffleButton = document.querySelector('.shuffle-button');
+         const gameOverOverlay = document.getElementById('gameOverOverlay');
+        const gameOverScoreDisplay = document.getElementById('gameOverScore');
+         const queueContainer = document.querySelector('.queue-container');
+        const fullscreenButton = document.getElementById('fullscreenButton');
+        let tiles = [];
+       let selectedTiles = [];
+       let score = 0;
          let hintAvailable = true;
-         let currentLevel = 1;
+       let currentLevel = 1;
         let gameCompleted = false;
-        let combo = 1;
+         let combo = 1;
          let canClick = true;
         let queue = [];
-         const queueSize = 7;
+        const queueSize = 7;
 
+        const emojis = [
+             '🍎', '🍌', '🍇', '🍉', '🥝', '🍓', '🍋', '🍊'
+        ];
 
-         const emojis = [
-            '🍎', '🍌', '🍇', '🍉', '🥝', '🍓', '🍋', '🍊'
-         ];
-      function generateLevel(level) {
-           gameBoard.innerHTML = '';
-           tiles = [];
-            const layersCount = Math.ceil(level / 2) + 2;
-           const baseLayerSize = 3;
-          for (let layerIndex = 0; layerIndex < layersCount; layerIndex++) {
-            const layer = document.createElement('div');
-               layer.classList.add('layer');
-                gameBoard.appendChild(layer);
+       function generateLevel(level) {
+            gameBoard.innerHTML = '';
+            tiles = [];
+           const layersCount = Math.ceil(level / 2) + 2;
+            const baseLayerSize = 3;
+            for (let layerIndex = 0; layerIndex < layersCount; layerIndex++) {
+              const layer = document.createElement('div');
+                layer.classList.add('layer');
+              gameBoard.appendChild(layer);
 
                 const layerSize = baseLayerSize + layerIndex * 2;
-                layer.style.gridTemplateColumns = `repeat(${layerSize}, 50px)`;
-              layer.style.transform = `translateY(${layerIndex * 10}px)`;
+               layer.style.gridTemplateColumns = `repeat(${layerSize}, 50px)`;
+                layer.style.transform = `translateY(${layerIndex * 10}px)`;
                const tilesThisLayer = [];
-                for (let i = 0; i < layerSize * layerSize; i++){
+               for (let i = 0; i < layerSize * layerSize; i++){
                   if(Math.random() > 0.15){
-                     const tile = document.createElement('div');
-                       tile.classList.add('tile');
+                        const tile = document.createElement('div');
+                         tile.classList.add('tile');
                         tile.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                     tile.dataset.index = tiles.length;
-                       tile.dataset.layer = layerIndex;
-
-                      const x = Math.random() * (gameBoard.offsetWidth - 50);
+                        tile.dataset.index = tiles.length;
+                        tile.dataset.layer = layerIndex;
+                       const x = Math.random() * (gameBoard.offsetWidth - 50);
                         const y = Math.random() * (gameBoard.offsetHeight - 50);
-                        tile.style.left = x + 'px';
-                       tile.style.top = y - (layerIndex * 20) + 'px';
-                      tilesThisLayer.push(tile)
-                    }
-               }
+                         tile.style.left = x + 'px';
+                        tile.style.top = y - (layerIndex * 15) + 'px';
+                        tilesThisLayer.push(tile)
+                  }
+                }
                 tilesThisLayer.sort(() => Math.random() - 0.5);
-              for(let tile of tilesThisLayer){
-                  tile.addEventListener('click', () => handleTileClick(tile));
-                   tiles.push(tile);
+             for(let tile of tilesThisLayer){
+                   tile.addEventListener('click', () => handleTileClick(tile));
+                    tiles.push(tile);
                    layer.appendChild(tile);
               }
-           }
-      }
+            }
+       }
        function handleTileClick(tile) {
           if (!canClick || gameCompleted ) return;
-            const allTiles = document.querySelectorAll('.tile');
-            const layer = parseInt(tile.dataset.layer);
+             const allTiles = document.querySelectorAll('.tile');
+          const layer = parseInt(tile.dataset.layer);
             const aboveTiles =  Array.from(allTiles).filter(otherTile => parseInt(otherTile.dataset.layer) > layer &&
-             Math.abs(tile.offsetLeft - otherTile.offsetLeft) < 40  &&
-             Math.abs(tile.offsetTop - otherTile.offsetTop) < 40);
+                Math.abs(tile.offsetLeft - otherTile.offsetLeft) < 40  &&
+               Math.abs(tile.offsetTop - otherTile.offsetTop) < 40);
           if (aboveTiles.length > 0) return;
-           canClick = false;
-           tile.classList.add('selected');
-            addToQueue(tile);
+            canClick = false;
+          tile.classList.add('selected');
+            startTileAnimation(tile);
         }
-       function addToQueue(tile) {
+        function startTileAnimation(tile) {
+           const tileRect = tile.getBoundingClientRect();
+           const queueRect = queueContainer.getBoundingClientRect();
+           const targetX = (queueRect.left + queueRect.width / 2) - (tileRect.left + tileRect.width / 2);
+           const targetY = (queueRect.top + queueRect.height / 2) - (tileRect.top + tileRect.height / 2);
+            const initialScale = 1.1;
+           const animationDuration = 300;
+
+             tile.style.transition = `transform ${animationDuration}ms ease-in-out, opacity ${animationDuration}ms ease-in-out`;
+
+           tile.style.transform = `translate(${targetX}px, ${targetY}px) scale(${initialScale})`;
+            tile.style.opacity = 0.5;
+
+            setTimeout(() => {
+                tile.style.transform = `translate(${targetX}px, ${targetY}px) scale(0.5)`;
+                 addToQueue(tile)
+                setTimeout(() => {
+                    tile.style.transition = 'none';
+                    tile.style.transform = '';
+                   tile.style.opacity = '';
+              }, animationDuration);
+          }, animationDuration);
+
+       }
+        function addToQueue(tile) {
            if (queue.length < queueSize) {
                 queue.push(tile);
                 renderQueue();
-               tile.style.opacity = 0.5;
                  setTimeout(() => {
                    tile.classList.remove('selected');
-                   canClick = true;
+                  canClick = true;
                 }, 100)
                  checkMatch();
            } else {
                 setTimeout(() => {
-                   canClick = true;
+                  canClick = true;
               },100);
            }
-        }
-      function checkMatch(){
-           if (queue.length < 3) return;
+       }
+       function checkMatch(){
+            if (queue.length < 3) return;
           const lastThree = queue.slice(-3);
-          const [tile1, tile2, tile3] = lastThree;
-            if (tile1.textContent === tile2.textContent && tile2.textContent === tile3.textContent) {
+            const [tile1, tile2, tile3] = lastThree;
+          if (tile1.textContent === tile2.textContent && tile2.textContent === tile3.textContent) {
                 tile1.classList.add('matched');
-                 tile2.classList.add('matched');
-                tile3.classList.add('matched');
-                setTimeout(() => {
-                  tile1.remove();
-                     tile2.remove();
-                     tile3.remove();
-                    score += 15 * combo;
+                tile2.classList.add('matched');
+                  tile3.classList.add('matched');
+               setTimeout(() => {
+                 tile1.remove();
+                   tile2.remove();
+                  tile3.remove();
+                  score += 15 * combo;
                      scoreDisplay.textContent = 'Score: ' + score;
-                     queue = queue.slice(0, -3);
-                      renderQueue();
-                   if(isGameComplete()){
-                       handleGameComplete();
+                    queue = queue.slice(0, -3);
+                    renderQueue();
+                  if(isGameComplete()){
+                      handleGameComplete();
                     }
                     combo++;
                },300);
-            }else {
-                renderQueue();
+
+          }else {
+              renderQueue();
                 combo = 1;
-           }
-      }
+          }
+       }
         function renderQueue() {
-          queueContainer.innerHTML = '';
+             queueContainer.innerHTML = '';
             for(let i = 0; i < queueSize; i++){
-               const slot = document.createElement('div');
-               slot.classList.add('queue-slot');
-               if(queue[i]){
+                const slot = document.createElement('div');
+                slot.classList.add('queue-slot');
+                 if(queue[i]){
                    slot.classList.add('full');
                     slot.textContent = queue[i].textContent;
-             }
-              queueContainer.appendChild(slot);
+              }
+               queueContainer.appendChild(slot);
            }
-      }
+        }
         function isGameComplete() {
            return tiles.every(tile => tile.classList.contains('matched'));
-        }
+      }
        function handleGameComplete(){
             gameCompleted = true;
-          gameCompleteMessage.style.display = 'block';
-           showConfetti();
+           gameCompleteMessage.style.display = 'block';
+            showConfetti();
            setTimeout(() => {
-              gameCompleted = false;
-                 gameCompleteMessage.style.display = 'none';
+                gameCompleted = false;
+              gameCompleteMessage.style.display = 'none';
               currentLevel++;
               updateURL();
               startLevel();
-           }, 3000)
-       }
-      function showConfetti() {
+          }, 3000)
+      }
+        function showConfetti() {
            for (let i = 0; i < 100; i++) {
-             const confetti = document.createElement('div');
-               confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}%`;
+               const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+               confetti.style.left = `${Math.random() * 100}%`;
                  confetti.style.animationDelay = `${Math.random() * 2}s`;
                 confettiContainer.appendChild(confetti);
           }
-           setTimeout(() => {
-               confettiContainer.innerHTML = '';
-            }, 5000);
-       }
+            setTimeout(() => {
+                confettiContainer.innerHTML = '';
+          }, 5000);
+        }
         function showHint() {
-          if (!hintAvailable) return;
-            const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
-             if (unmatchedTiles.length < 3) {
+             if (!hintAvailable) return;
+           const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
+            if (unmatchedTiles.length < 3) {
                  return;
             }
            const potentialMatches = [];
             for (let i = 0; i < unmatchedTiles.length; i++) {
-               for (let j = i + 1; j < unmatchedTiles.length; j++) {
-                    for(let k = j + 1; k < unmatchedTiles.length; k++){
-                     if (unmatchedTiles[i].textContent === unmatchedTiles[j].textContent && unmatchedTiles[j].textContent === unmatchedTiles[k].textContent) {
-                         potentialMatches.push([unmatchedTiles[i], unmatchedTiles[j], unmatchedTiles[k]]);
-                       }
-                 }
-             }
-          }
-            if (potentialMatches.length > 0) {
-              const [hintTile1, hintTile2, hintTile3] = potentialMatches[Math.floor(Math.random() * potentialMatches.length)];
-                hintTile1.classList.add('selected');
-                  hintTile2.classList.add('selected');
-                   hintTile3.classList.add('selected');
-              setTimeout(() => {
-                   hintTile1.classList.remove('selected');
-                 hintTile2.classList.remove('selected');
-                    hintTile3.classList.remove('selected');
-               }, 1000);
-                hintAvailable = false;
-              hintButton.disabled = true;
-               setTimeout(() => {
-                   hintAvailable = true;
-                    hintButton.disabled = false;
-              }, 3000);
-           }
-       }
-        hintButton.addEventListener('click', showHint);
-       function startLevel(){
-          showLevelTransition();
+                for (let j = i + 1; j < unmatchedTiles.length; j++) {
+                 for(let k = j + 1; k < unmatchedTiles.length; k++){
+                      if (unmatchedTiles[i].textContent === unmatchedTiles[j].textContent && unmatchedTiles[j].textContent === unmatchedTiles[k].textContent) {
+                        potentialMatches.push([unmatchedTiles[i], unmatchedTiles[j], unmatchedTiles[k]]);
+                    }
+                }
+            }
+         }
+           if (potentialMatches.length > 0) {
+               const [hintTile1, hintTile2, hintTile3] = potentialMatches[Math.floor(Math.random() * potentialMatches.length)];
+                 hintTile1.classList.add('selected');
+                 hintTile2.classList.add('selected');
+                  hintTile3.classList.add('selected');
              setTimeout(() => {
-               generateLevel(currentLevel);
-           }, 500);
-      }
-         function updateURL(){
-           const params = new URLSearchParams(window.location.search);
-            params.set('level', currentLevel);
-             window.history.pushState({}, '', `${location.pathname}?${params}`);
+                  hintTile1.classList.remove('selected');
+                   hintTile2.classList.remove('selected');
+                  hintTile3.classList.remove('selected');
+               }, 1000);
+             hintAvailable = false;
+              hintButton.disabled = true;
+                setTimeout(() => {
+                    hintAvailable = true;
+                  hintButton.disabled = false;
+               }, 3000);
+         }
         }
-        function getLevelFromURL() {
-            const params = new URLSearchParams(window.location.search);
-          const levelParam = params.get('level');
-           return levelParam ? parseInt(levelParam, 10) : 1;
+        hintButton.addEventListener('click', showHint);
+      function startLevel(){
+           showLevelTransition();
+            setTimeout(() => {
+                generateLevel(currentLevel);
+           }, 500);
+       }
+       function updateURL(){
+           const params = new URLSearchParams(window.location.search);
+           params.set('level', currentLevel);
+             window.history.pushState({}, '', `${location.pathname}?${params}`);
+       }
+       function getLevelFromURL() {
+           const params = new URLSearchParams(window.location.search);
+             const levelParam = params.get('level');
+             return levelParam ? parseInt(levelParam, 10) : 1;
         }
        function showLevelTransition() {
             levelTransition.textContent = `Level ${currentLevel}`;
-             levelTransition.classList.add('active');
-            setTimeout(() => {
-               levelTransition.classList.remove('active');
+           levelTransition.classList.add('active');
+             setTimeout(() => {
+              levelTransition.classList.remove('active');
           }, 1000);
-       }
-        function shuffleTiles() {
-           if (!canClick) return;
-           canClick = false;
-           const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
-           for (let tile of unmatchedTiles) {
-               const x = Math.random() * (gameBoard.offsetWidth - 50);
-                 const y = Math.random() * (gameBoard.offsetHeight - 50);
+      }
+       function shuffleTiles() {
+          if (!canClick) return;
+            canClick = false;
+             const unmatchedTiles = tiles.filter(tile => !tile.classList.contains('matched'));
+            for (let tile of unmatchedTiles) {
+                const x = Math.random() * (gameBoard.offsetWidth - 50);
+                const y = Math.random() * (gameBoard.offsetHeight - 50);
                 tile.style.left = x + 'px';
-                 tile.style.top = y + 'px';
+                tile.style.top = y + 'px';
           }
            setTimeout(() => {
                 canClick = true;
-            },500);
-      }
+           },500);
+        }
        shuffleButton.addEventListener('click', shuffleTiles);
-         function gameOver(){
-           gameOverScoreDisplay.textContent = `Score: ${score}`;
-          gameOverOverlay.style.display = 'flex';
-      }
+        function gameOver(){
+            gameOverScoreDisplay.textContent = `Score: ${score}`;
+            gameOverOverlay.style.display = 'flex';
+        }
        function restartGame() {
-          gameOverOverlay.style.display = 'none';
+           gameOverOverlay.style.display = 'none';
              currentLevel = 1;
-            score = 0;
+             score = 0;
             updateURL();
             startLevel();
-        }
-         currentLevel = getLevelFromURL();
-        startLevel();
+       }
+       function requestFullscreen() {
+            if (document.documentElement.requestFullscreen) {
+               document.documentElement.requestFullscreen();
+           } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
+               document.documentElement.mozRequestFullScreen();
+           } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                document.documentElement.webkitRequestFullscreen();
+           } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
+                document.documentElement.msRequestFullscreen();
+           }
+       }
+        function exitFullscreen() {
+            if (document.exitFullscreen) {
+               document.exitFullscreen();
+           } else if (document.mozCancelFullScreen) { /* Firefox */
+               document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+               document.webkitExitFullscreen();
+           } else if (document.msExitFullscreen) { /* IE/Edge */
+               document.msExitFullscreen();
+           }
+       }
+        fullscreenButton.addEventListener('click', () => {
+            if (!document.fullscreenElement &&
+                !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                requestFullscreen();
+           } else {
+               exitFullscreen();
+           }
+        });
+        currentLevel = getLevelFromURL();
+         startLevel();
     </script>
 </body>
 </html>
